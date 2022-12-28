@@ -1,0 +1,75 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Task {
+  id: Int!
+  name: String!
+  project: String!
+  date: String!
+  minutes: Int!
+  hours: Int!
+  user: User
+}
+
+type User {
+  """Example field (placeholder)"""
+  id: Int!
+  first_name: String!
+  middle_name: String
+  last_name: String!
+  email: String!
+  tasks: [Task!]
+}
+
+type Query {
+  tasks: [Task!]!
+  taskById(id: Int!): Task!
+  users: [User!]!
+  user(id: Int!): User!
+}
+
+type Mutation {
+  createTask(createTaskInput: CreateTaskInput!): Task!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: Int!): User!
+}
+
+input CreateTaskInput {
+  name: String!
+  project: String!
+  date: String
+  user: Int!
+}
+
+input CreateUserInput {
+  """First Name of the user"""
+  first_name: String!
+
+  """Middle Name of the user"""
+  middle_name: String!
+
+  """Last Name of the user"""
+  last_name: String!
+
+  """Unique Email of the user"""
+  email: String!
+}
+
+input UpdateUserInput {
+  """Name to be changed"""
+  first_name: String
+
+  """Name to be changed"""
+  middle_name: String
+
+  """Name to be changed"""
+  last_name: String
+
+  """Unique Email of the user"""
+  email: String
+
+  """ID of the user to be updated"""
+  id: Int!
+}
