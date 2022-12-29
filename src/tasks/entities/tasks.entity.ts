@@ -1,4 +1,4 @@
-import { Field, Int, ObjectType } from "@nestjs/graphql";
+import { Field, Int, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { User } from "../../users/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
@@ -11,6 +11,9 @@ export enum TaskStatus {
 @Entity()
 @ObjectType()
 export class Task {
+    constructor() {
+        registerEnumType(TaskStatus, { name: 'TaskStatus' })
+    }
     @PrimaryGeneratedColumn()
     @Field(type => Int)
     id: number;
@@ -44,7 +47,7 @@ export class Task {
         enum: TaskStatus,
         default: TaskStatus.PENDING,
     })
-    @Field()
+    @Field(type => TaskStatus)
     status: string;
 
 }

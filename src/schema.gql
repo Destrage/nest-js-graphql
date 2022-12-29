@@ -10,7 +10,14 @@ type Task {
   minutes: Int!
   hours: Int!
   user: User
-  status: String!
+  status: TaskStatus!
+}
+
+enum TaskStatus {
+  PENDING
+  INPROGRESS
+  COMPLETED
+  DELETED
 }
 
 type User {
