@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateTaskInput } from './dto/create-task.dto';
-import { Task } from './entities/tasks.entity';
+import { Task, TaskStatus } from './entities/tasks.entity';
 
 @Injectable()
 export class TasksService {
@@ -16,9 +16,10 @@ export class TasksService {
     async create(createTaskInput: CreateTaskInput): Promise<Task> {
         createTaskInput.date = new Date().toISOString();
 
-        const user = await this.userRepository.findOneByOrFail({ id: createTaskInput.user })
+        const user = await this.userRepository.findOneByOrFail({ id: createTaskInput.user });
 
         createTaskInput.user = user;
+        createTaskInput.status = TaskStatus.PENDING;
         const task = this.tasksRepository.create(createTaskInput);
         return this.tasksRepository.save(task);
     }

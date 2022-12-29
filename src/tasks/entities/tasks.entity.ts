@@ -2,6 +2,12 @@ import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { User } from "../../users/entities/user.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+export enum TaskStatus {
+    PENDING = "pending",
+    INPROGRESS = "in-progress",
+    COMPLETED = "completed",
+    DELETED = "deleted",
+}
 @Entity()
 @ObjectType()
 export class Task {
@@ -32,4 +38,13 @@ export class Task {
     @ManyToOne(() => User, user => user.tasks)
     @Field(type => User, { nullable: true })
     user: User;
+
+    @Column({
+        type: "enum",
+        enum: TaskStatus,
+        default: TaskStatus.PENDING,
+    })
+    @Field()
+    status: string;
+
 }

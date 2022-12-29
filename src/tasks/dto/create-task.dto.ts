@@ -16,4 +16,7 @@ export class CreateTaskInput {
 
     @Field(type => Int)
     user: any;
+
+    @Field({ nullable: true })
+    status: string;
 }

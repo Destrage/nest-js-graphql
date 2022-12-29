@@ -10,6 +10,7 @@ type Task {
   minutes: Int!
   hours: Int!
   user: User
+  status: String!
 }
 
 type User {
@@ -41,6 +42,7 @@ input CreateTaskInput {
   project: String!
   date: String
   user: Int!
+  status: String
 }
 
 input CreateUserInput {

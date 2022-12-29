@@ -13,6 +13,7 @@ export class UsersService {
     @InjectRepository(User) private userRepository: Repository<User>,
     private readonly taskService: TasksService
   ) { }
+
   async create(createUserInput: CreateUserInput): Promise<User> {
     const user = await this.userRepository.create(createUserInput);
     return this.userRepository.save(user);
@@ -23,7 +24,7 @@ export class UsersService {
   }
 
   async findOne(id: number): Promise<User> {
-    return this.userRepository.findOneByOrFail({ id });
+    return this.userRepository.findOneOrFail({ where: { id }, relations: { tasks: true } });
   }
 
   async update(id: number, updateUserInput: UpdateUserInput): Promise<User> {
